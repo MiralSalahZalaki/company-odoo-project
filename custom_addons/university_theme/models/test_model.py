@@ -8,4 +8,4 @@ class TestModel(models.Model):
     status = fields.Selection([
         ('pending','Pending'),
         ('done','Done'),
-    ])    
+    ])    # And this comment added from repo
