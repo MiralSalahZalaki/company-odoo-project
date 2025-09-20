@@ -1,0 +1,27 @@
+# Code Ownership Rules
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for all files
+* @development-team
+
+# Third-party modules - DevOps team ONLY
+third_party_addons/ @devops-team
+third_party_addons/** @devops-team
+
+# Critical configuration files - Senior developers + DevOps
+config/odoo.conf @senior-developers @devops-team
+config/requirements.txt @senior-developers @devops-team
+
+# Git configuration - DevOps only
+.githooks/ @devops-team
+.githooks/** @devops-team
+CODEOWNERS @devops-team
+
+# Scripts require review
+scripts/ @senior-developers @devops-team
+scripts/** @senior-developers @devops-team
+
+# Documentation - anyone can contribute
+*.md @development-team
+docs/ @development-team
+docs/** @development-team

@@ -1,0 +1,26 @@
+#!/bin/bash
+# Third-Party Module Protection Hook
+
+echo "🔍 Checking for third-party modifications..."
+
+# Check if any files in third_party_addons are being committed
+if git diff --cached --name-only | grep -q "^third_party_addons/"; then
+    echo ""
+    echo "❌ ERROR: Direct modifications to third_party_addons/ are NOT allowed!"
+    echo ""
+    echo "📋 Files you're trying to modify:"
+    git diff --cached --name-only | grep "^third_party_addons/" | sed 's/^/   - /'
+    echo ""
+    echo "💡 To update third-party modules:"
+    echo "   1. Contact DevOps team via Slack/Email"
+    echo "   2. Submit module update request"
+    echo "   3. DevOps will handle the update process"
+    echo ""
+    echo "🚨 Emergency override (DevOps ONLY):"
+    echo "   git commit --no-verify"
+    echo ""
+    exit 1
+fi
+
+echo "✅ No third-party modifications detected - commit approved"
+exit 0

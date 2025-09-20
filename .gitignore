@@ -26,3 +26,20 @@ Thumbs.db
 
 # Local config overrides
 config/local.conf
+# Third-party modules temporary files
+third_party_addons/**/filestore/
+third_party_addons/**/sessions/
+third_party_addons/**/*.pyc
+third_party_addons/**/__pycache__/
+
+# Development tools
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local overrides
+config/local_*.conf
+config/development.conf
+.env
+.env.local

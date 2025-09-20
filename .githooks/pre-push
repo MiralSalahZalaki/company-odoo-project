@@ -1,0 +1,40 @@
+#!/bin/bash
+# Third-Party Module Push Protection
+
+echo "🔍 Checking push for third-party modifications..."
+
+# Get the range of commits being pushed
+while read local_ref local_sha remote_ref remote_sha; do
+    # Check if we're pushing to main or develop
+    if [[ "$remote_ref" == *"/main" || "$remote_ref" == *"/develop" ]]; then
+        # Get list of changed files in this push
+        if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
+            # New branch, check all commits
+            range="$local_sha"
+        else
+            # Existing branch, check new commits
+            range="$remote_sha..$local_sha"
+        fi
+        
+        # Check for third-party changes
+        THIRD_PARTY_CHANGES=$(git diff --name-only "$range" | grep "^third_party_addons/" || true)
+        
+        if [ ! -z "$THIRD_PARTY_CHANGES" ]; then
+            echo ""
+            echo "❌ ERROR: Push contains third-party module modifications!"
+            echo ""
+            echo "📋 Modified files:"
+            echo "$THIRD_PARTY_CHANGES" | sed 's/^/   - /'
+            echo ""
+            echo "🚫 Push to $remote_ref blocked"
+            echo ""
+            echo "💡 Contact DevOps team for third-party updates"
+            echo "🆘 Emergency override (DevOps only): git push --no-verify"
+            echo ""
+            exit 1
+        fi
+    fi
+done
+
+echo "✅ Push approved - no third-party modifications detected"
+exit 0
