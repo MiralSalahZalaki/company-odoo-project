@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+     <t id="user_menu_custom" inherit_id="web.UserMenu">
+        <xpath expr="//div[@class='dropdown-divider']" position="before">
+            <a href="#" class="dropdown-item custom-appearance">
+                <i class="fa fa-paint-brush me-2"></i>
+                <t t-esc="_('Appearance')"/>
+
+            </a>
+        </xpath>
+    </t>
+</templates>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+  <t t-inherit="web.NavBar.AppsMenu"
+     t-inherit-mode="extension"
+     owl="1">
+    <xpath expr="//t[@t-set-slot='content']" position="inside">
+      <div class="d-flex justify-content-between p-2">
+       <button type="button" class="mk-apps-close-btn btn btn-sm ">Close</button>
+       <button type="button" class="mk-apps-theme-btn btn btn-sm ">Change theme</button>
+
+      </div>
+    </xpath>
+  </t>
+</templates>

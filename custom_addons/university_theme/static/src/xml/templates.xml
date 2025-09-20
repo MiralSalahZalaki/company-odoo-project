@@ -1,0 +1,19 @@
+<templates id="template" xml:space="preserve">
+  <t t-inherit="muk_web_appsbar.AppsBar" t-inherit-mode="extension" owl="1">
+    <xpath expr="//ul[@class='mk_apps_sidebar_menu']" position="after">
+      <div class="company-logo-container text-center">
+        <img class="img-fluid mx-auto"
+             t-att-src="sidebarImageUrl or '/web/image/res.company/' + companyService.currentCompany.id + '/logo'"
+             alt="Company Logo"
+             style="max-width: 125px;max-height: 80px;margin: 16px 0;"
+             onerror="this.style.display='none'"/>
+      </div>
+    </xpath>
+
+    <xpath expr="//div[@class='mk_apps_sidebar_logo p-2']" position="replace"/>
+
+    <xpath expr="//ul[@class='mk_apps_sidebar_menu']" position="after">
+      <span class='app-list-header'>Applications</span>
+    </xpath>
+  </t>
+</templates>

@@ -1,0 +1,25 @@
+<odoo>
+    <record id="theme_wizard_form_view" model="ir.ui.view">
+        <field name="name">theme.wizard.form</field>
+        <field name="model">theme.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="primary_color" widget="color_picker"/>
+                    <field name="secondary_color" widget="color_picker"/>
+                </group>
+                <footer>
+                    <button string="Apply" name="apply_changes" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="theme_wizard_action" model="ir.actions.act_window">
+        <field name="name">Appearance</field>
+        <field name="res_model">theme.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

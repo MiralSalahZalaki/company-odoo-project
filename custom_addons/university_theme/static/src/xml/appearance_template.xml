@@ -1,0 +1,173 @@
+<templates xml:space="preserve">
+    <t t-name="university_theme.AppearanceDialog">
+        <Dialog title="'Theme Settings'" size="'lg'" onClose="props.close" contentClass="'appearance-dialog'">
+            <div class="o_appearance_dialog d-flex" style="height: 600px;">
+                <!-- Sidebar Navigation -->
+                <div class="sidebar-nav  border-end" style="min-width: 240px;height:100%; padding: 20px 0;">
+                    <div class="nav nav-pills flex-column">
+                        <a class="nav-link px-4 py-2 mb-1 text-start"
+                           t-att-class="state.activeTab === 'general' ? 'active' : ''"
+                           href="#"
+                           t-on-click.prevent="() => this.setActiveTab('general')">
+                            General Settings
+                        </a>
+                        <a class="nav-link px-4 py-2 mb-1 text-start"
+                           t-att-class="state.activeTab === 'colors' ? 'active' : ''"
+                           href="#"
+                           t-on-click.prevent="() => this.setActiveTab('colors')">
+                            Colors
+                        </a>
+                        <a class="nav-link px-4 py-2 mb-1 text-start"
+                           t-att-class="state.activeTab === 'app_drawer' ? 'active' : ''"
+                           href="#"
+                           t-on-click.prevent="() => this.setActiveTab('app_drawer')">
+                            App Drawer
+                        </a>
+                        <a class="nav-link px-4 py-2 mb-1 text-start"
+                           t-att-class="state.activeTab === 'font' ? 'active' : ''"
+                           href="#"
+                           t-on-click.prevent="() => this.setActiveTab('font')">
+                            Font Settings
+                        </a>
+                        <a class="nav-link px-4 py-2 mb-1 text-start"
+                           t-att-class="state.activeTab === 'loaders' ? 'active' : ''"
+                           href="#"
+                           t-on-click.prevent="() => this.setActiveTab('loaders')">
+                            Loaders
+                        </a>
+                    </div>
+                </div>
+                <!-- Main Content Area -->
+                <div class="flex-grow-1 p-4" style="overflow-y: auto;">
+                    <!-- General Settings Tab -->
+                    <div t-if="state.activeTab === 'general'">
+                        <h4 class="mb-4">General Settings</h4>
+                        <!-- Theme Style -->
+                        <div class="mb-4">
+                            <h6 class="mb-3">Theme Style</h6>
+                            <div class="d-flex gap-3">
+                                <div class="theme-option border rounded p-3 text-center cursor-pointer"
+                                     style="width: 120px;"
+                                     t-att-class="state.currentTheme === 'light' ? 'border-primary ' : ''"
+                                     t-on-click="() => this.onThemeChange('light')">
+                                    <div class="theme-preview bg-white border mb-2" style="height: 60px; border-radius: 6px;"></div>
+                                    <input type="radio" name="theme" t-att-checked="state.currentTheme === 'light'" class="me-1"/>
+                                    <small>Light</small>
+                                </div>
+                                <div class="theme-option border rounded p-3 text-center cursor-pointer"
+                                     style="width: 120px;"
+                                     t-att-class="state.currentTheme === 'dark' ? 'border-primary ' : ''"
+                                     t-on-click="() => this.onThemeChange('dark')">
+                                    <div class="theme-preview bg-dark border mb-2" style="height: 60px; border-radius: 6px;"></div>
+                                    <input type="radio" name="theme" t-att-checked="state.currentTheme === 'dark'" class="me-1"/>
+                                    <small>Dark</small>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Menu Position -->
+                        <div class="mb-4">
+                            <h6 class="mb-3">Menu Position</h6>
+                            <div class="row g-3">
+                                <div class="col-6">
+                                    <div class="menu-position-option border rounded p-3 text-center cursor-pointer"
+
+                                         t-att-class="state.selectedMenuPosition === 'left' ? 'border-primary' : ''"
+                                         t-on-click="() => this.onMenuPositionChange('left')">
+                                        <input type="radio" name="menuPosition" t-att-checked="state.selectedMenuPosition === 'left'" class="mb-2"/>
+                                        <div class="d-flex justify-content-center">
+                                            <div class="bg-secondary position-relative" style="width: 60px; height: 40px; border-radius: 4px;">
+                                                <div class="bg-primary" style="width: 15px; height: 100%; border-radius: 2px;"></div>
+                                            </div>
+                                        </div>
+                                        <small class="mt-2 d-block">Left</small>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="menu-position-option border rounded p-3 text-center cursor-pointer"
+
+                                         t-att-class="state.selectedMenuPosition === 'right' ? 'border-primary' : ''"
+                                         t-on-click="() => this.onMenuPositionChange('right')">
+                                        <input type="radio" name="menuPosition" t-att-checked="state.selectedMenuPosition === 'right'" class="mb-2"/>
+                                        <div class="d-flex justify-content-center">
+                                            <div class="bg-secondary position-relative" style="width: 60px; height: 40px; border-radius: 4px;">
+                                                <div class="bg-primary position-absolute end-0" style="width: 15px; height: 100%; border-radius: 2px;"></div>
+                                            </div>
+                                        </div>
+                                        <small class="mt-2 d-block">Right</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Colors Tab -->
+                    <div t-if="state.activeTab === 'colors'">
+                        <h4 class="mb-4">Colors</h4>
+                        <!-- Color Palettes Grid -->
+                        <div class="color-palettes-grid">
+                            <div class="row g-3">
+                                <t t-foreach="this.getPalettesForCurrentTheme()" t-as="palette" t-key="palette_index">
+                                    <div class="col-6">
+                                        <div class="palette-option border rounded p-3 cursor-pointer"
+                                             t-att-class="state.selectedPaletteIndex === palette_index ? 'border-primary bg-light' : ''"
+                                             t-on-click="() => this.selectColorPalette(palette_index)">
+                                            <input type="radio" name="colorPalette" t-att-checked="state.selectedPaletteIndex === palette_index" class="mb-2"/>
+                                            <div class="mb-2">
+                                                <small class="fw-bold" t-esc="palette.name"></small>
+                                            </div>
+                                            <div class="d-flex gap-2">
+                                                <div class="color-swatch rounded" t-att-style="'width: 24px; height: 24px; background-color: ' + palette.brandColor + ';'"></div>
+                                                <div class="color-swatch rounded" t-att-style="'width: 24px; height: 24px; background-color: ' + palette.secondBrandColor + ';'"></div>
+                                                <div class="color-swatch rounded" t-att-style="'width: 24px; height: 24px; background-color: ' + palette.lightBrandColor + ';'"></div>
+                                                <div class="color-swatch rounded" t-att-style="'width: 24px; height: 24px; background-color: ' + palette.blueBlack + ';'"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- App Drawer Tab -->
+                    <div t-if="state.activeTab === 'app_drawer'">
+                        <h4 class="mb-4">App Drawer</h4>
+                        <!-- Apply Background Image -->
+                        <div class="mb-4">
+                            <div class="d-flex align-items-center justify-content-between mb-3 p-3 border rounded">
+                                <span class="fw-semibold">Apply Background Image</span>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="drawerBgImageToggle" t-model="state.drawerBackgroundImage"/>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Body Image Upload -->
+                        <div class="mb-4" t-if="state.drawerBackgroundImage">
+                            <h6 class="mb-3">App Drawer Background</h6>
+                            <div class="mb-3">
+                                <label class="btn btn-outline-secondary">
+                                    Choose File (Light)
+                                    <input type="file"
+                                            class="d-none"
+                                            accept="image/*"
+                                            t-on-change="(ev) => this.handleImageUpload(ev, 'drawer', 'light')"/>
+                                </label>
+                                <label class="btn btn-outline-secondary ms-2">
+                                    Choose File (Dark)
+                                    <input type="file"
+                                        class="d-none"
+                                        accept="image/*"
+                                        t-on-change="(ev) => this.handleImageUpload(ev, 'drawer', 'dark')"/>
+                                </label>
+                                <span class="text-muted ms-2">Choose an image for each mode.</span>
+                            </div>
+                            <div class="image-preview border rounded p-3 university-preview-bg" style="height: 200px;">
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <t t-set-slot="footer">
+                <button class="btn btn-primary me-2" t-on-click="() => this.applySettings()">Apply</button>
+                <button class="btn btn-secondary" t-on-click="props.close">Discard</button>
+            </t>
+        </Dialog>
+    </t>
+</templates>

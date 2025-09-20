@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Odoo
+*.pyc
+filestore/
+sessions/
+.odoorc
+*.log
+
+# Virtual environment
+venv/
+odoo-env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local config overrides
+config/local.conf
